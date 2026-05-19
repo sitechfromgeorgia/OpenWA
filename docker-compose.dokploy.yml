@@ -10,24 +10,14 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=2785
-      - DATABASE_TYPE=postgres
-      - DATABASE_HOST=dokploy-postgres
-      - DATABASE_PORT=5432
-      - DATABASE_USERNAME=dokploy
-      - DATABASE_PASSWORD=bdwjD8kPkMRXHNmS8oWhi1wwOGay59Vv
-      - DATABASE_NAME=openwa
-      - DATABASE_SYNCHRONIZE=true
+      - DATABASE_TYPE=sqlite
       - ENGINE_TYPE=whatsapp-web.js
       - STORAGE_TYPE=local
       - STORAGE_LOCAL_PATH=/app/data/media
       - API_MASTER_KEY=${API_MASTER_KEY}
       - LOG_LEVEL=info
-      - PUPPETEER_HEADLESS=true
     volumes:
       - openwa-data:/app/data
-    networks:
-      - openwa-network
-      - dokploy-network
 
   dashboard:
     build:
@@ -39,14 +29,6 @@ services:
       - '2886:80'
     depends_on:
       - openwa-api
-    networks:
-      - openwa-network
 
 volumes:
   openwa-data:
-
-networks:
-  openwa-network:
-    driver: bridge
-  dokploy-network:
-    external: true
